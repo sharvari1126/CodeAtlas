@@ -3,7 +3,7 @@ import os
 import ast
 
 def clone_repository(repo_url):
-    
+
     repo_name = repo_url.split("/")[-1].replace(".git", "")
 
     clone_path = os.path.join("repositories", repo_name)
@@ -108,27 +108,72 @@ def find_definitions(repo_path):
     return definitions[:50]
 
 
+def build_repository_tree(repo_path):
+
+
+    tree = []
+
+    for root, dirs, files in os.walk(repo_path):
+        ignore_dirs = {
+    ".git",
+    ".github",
+    ".devcontainer",
+    "__pycache__",
+    ".pytest_cache",
+    "venv",
+    ".idea",
+    ".vscode"
+}
+
+        dirs[:] = [
+            d for d in dirs
+            if d not in ignore_dirs
+        ]
+
+
+        level = root.replace(repo_path, "").count(os.sep)
+
+        indent = "│   " * level
+
+        tree.append(
+            f"{indent}{os.path.basename(root)}/"
+        )
+
+        sub_indent = "│   " * (level + 1)
+
+        for file in files:
+
+            tree.append(
+                f"{sub_indent}{file}"
+            )
+
+    return tree
+
+
 def analyze_repository(repo_path):
 
     scan_results = scan_repository(repo_path)
 
     definitions = find_definitions(repo_path)
 
-    functions = []
-    classes = []
+    functions = set()
+    classes = set()
+    tree = build_repository_tree(repo_path)
 
     for item in definitions:
 
         if item["type"] == "function":
-            functions.append(item["name"])
+            functions.add(item["name"])
 
         elif item["type"] == "class":
-            classes.append(item["name"])
+            classes.add(item["name"])
 
     return {
         "total_files": scan_results["total_files"],
         "python_files": scan_results["python_files"],
-        "functions": functions,
-        "classes": classes,
-        "definitions": definitions
+        "functions": list(functions),
+        "classes": list(classes),
+        "definitions": definitions,
+        "repository_tree": tree 
+
     }

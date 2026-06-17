@@ -3,8 +3,16 @@ from backend.scanner.repo_scanner import (
     clone_repository,
     analyze_repository
 )
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def home():
@@ -23,8 +31,16 @@ def clone_repo(repo_url: str):
 @app.post("/analyze")
 def analyze_repo(repo_url: str):
 
-    repo_path = clone_repository(repo_url)
+    try:
 
-    results = analyze_repository(repo_path)
+        repo_path = clone_repository(repo_url)
 
-    return results
+        results = analyze_repository(repo_path)
+
+        return results
+
+    except Exception as e:
+
+        return {
+            "error": str(e)
+        }
