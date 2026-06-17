@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CodeAtlas — Repository Intelligence Copilot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+      :root{
+        --bg:#f6f8fb;
+        --card:#ffffff;
+        --muted:#6c757d;
+        --accent:#0d6efd;
+        --panel:#f1f5f9;
+        --accent-2:#0a58ca;
+      }
+      html,body{height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+      body{background:var(--bg);color:#0f1724}
+      .navbar-brand strong{letter-spacing:0.4px}
+      .subtitle{font-size:0.85rem;color:var(--muted);margin-left:.5rem}
+      .hero{padding:3.5rem 0}
+      .input-card{background:linear-gradient(180deg,#ffffff,#fbfdff);border:1px solid rgba(15,23,36,0.05);box-shadow:0 6px 20px rgba(12,34,64,0.04)}
+      .analyze-btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:#fff}
+      .overview-card{background:var(--card);border:1px solid rgba(15,23,36,0.04);box-shadow:0 6px 18px rgba(12,34,64,0.03)}
+      .code-tree{background:var(--panel);padding:1rem;border-radius:.5rem;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;color:#0b1220}
+      .tree-line{white-space:pre;line-height:1.55}
+      .badge-files{background:#eef7ff;color:var(--accent-2);font-weight:600}
+      .card-legend{font-size:.9rem;color:var(--muted)}
+      .footer{padding:1.75rem 0;color:var(--muted);font-size:.92rem}
+      @media(min-width:992px){
+        .hero{padding:4.5rem 0}
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-3">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <div class="me-2" style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#6fb1ff);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">CA</div>
+          <div>
+            <div><strong>CodeAtlas</strong></div>
+            <div class="subtitle">Repository Intelligence Copilot</div>
+          </div>
+        </a>
+        <div class="ms-auto d-none d-md-flex align-items-center">
+          <div class="text-end me-3">
+            <div style="font-weight:600">Workspace</div>
+            <div class="card-legend">Local / Repositories</div>
+          </div>
+          <button class="btn btn-outline-secondary btn-sm">Sign in</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <section class="hero">
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <h1 class="display-5" style="font-weight:700">Understand Any Codebase</h1>
+            <p class="lead text-muted mt-3">Analyze repositories to extract functions, classes, and architectural insights. CodeAtlas helps you explore code structure, identify key entry points, and accelerate onboarding with repository intelligence.</p>
+            <div class="mt-4">
+              <div class="input-card p-4 rounded">
+                <form class="row g-2 align-items-center">
+                  <div class="col-12">
+                    <label class="form-label mb-1">Repository URL</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="https://github.com/owner/repository" aria-label="Repository URL">
+                  </div>
+                  <div class="col-12 text-end mt-2">
+                    <button type="button" class="btn analyze-btn btn-lg">Analyze Repository</button>
+                  </div>
+                </form>
+                <div class="row mt-3">
+                  <div class="col">
+                    <small class="text-muted">Paste a public GitHub repository URL. This demo UI is non-functional — no backend or network calls are made.</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 mt-4 mt-lg-0">
+            <div class="overview-card p-4 rounded">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <h5 style="margin-bottom:0">Repository Summary</h5>
+                  <div class="card-legend">Quick snapshot</div>
+                </div>
+                <div class="text-end">
+                  <div class="badge badge-files px-3 py-2 rounded">29 files</div>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-6">
+                  <div class="p-3 bg-white rounded shadow-sm text-center">
+                    <div class="text-muted small">Total Files</div>
+                    <div style="font-weight:700;font-size:1.35rem">29</div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="p-3 bg-white rounded shadow-sm text-center">
+                    <div class="text-muted small">Python Files</div>
+                    <div style="font-weight:700;font-size:1.35rem">12</div>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="my-3">
+              <div class="d-flex gap-2">
+                <div class="flex-fill p-2 rounded border" style="background:#fbfdff">
+                  <div class="text-muted small">Functions Discovered</div>
+                  <ul class="mb-0 mt-2" style="padding-left:1rem">
+                    <li>login()</li>
+                    <li>logout()</li>
+                    <li>authenticate_user()</li>
+                  </ul>
+                </div>
+                <div class="flex-fill p-2 rounded border" style="background:#fbfdff">
+                  <div class="text-muted small">Classes Discovered</div>
+                  <ul class="mb-0 mt-2" style="padding-left:1rem">
+                    <li>User</li>
+                    <li>AuthManager</li>
+                    <li>SessionHandler</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="row mb-5">
+        <div class="col-lg-8">
+          <div class="card shadow-sm overview-card p-4 mb-4">
+            <h5>Analysis Results</h5>
+            <p class="card-legend mb-3">Placeholder results from a static analysis pass</p>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="p-3 rounded" style="background:linear-gradient(180deg,#ffffff,#f8fbff);border:1px solid rgba(12,34,64,0.04)">
+                  <h6 class="mb-2">Repository Summary</h6>
+                  <div class="text-muted">Total Files: <strong>29</strong></div>
+                  <div class="text-muted">Python Files: <strong>12</strong></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3 rounded" style="background:linear-gradient(180deg,#ffffff,#fff9f7);border:1px solid rgba(12,34,64,0.04)">
+                  <h6 class="mb-2">Functions Discovered</h6>
+                  <ul class="mb-0">
+                    <li>login()</li>
+                    <li>logout()</li>
+                    <li>authenticate_user()</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="p-3 rounded" style="background:linear-gradient(180deg,#ffffff,#f7fff9);border:1px solid rgba(12,34,64,0.04)">
+                  <h6 class="mb-2">Classes Discovered</h6>
+                  <div class="d-flex gap-3 flex-wrap">
+                    <span class="badge bg-light text-dark border">User</span>
+                    <span class="badge bg-light text-dark border">AuthManager</span>
+                    <span class="badge bg-light text-dark border">SessionHandler</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card shadow-sm overview-card p-4">
+            <h5>Repository Structure</h5>
+            <p class="card-legend">Visual code-tree preview</p>
+            <div class="mt-3 code-tree">
+              <div class="tree-line">backend/</div>
+              <div class="tree-line">├── main.py</div>
+              <div class="tree-line">├── scanner/</div>
+              <div class="tree-line">│   └── repo_scanner.py</div>
+              <div class="tree-line">└── database/</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card shadow-sm overview-card p-4 mb-4">
+            <h6>Quick Actions</h6>
+            <p class="card-legend">(visual only)</p>
+            <div class="d-grid gap-2 mt-3">
+              <button class="btn btn-outline-primary" type="button">View File Tree</button>
+              <button class="btn btn-outline-secondary" type="button">Export Summary</button>
+              <button class="btn btn-outline-secondary" type="button">Open Repo</button>
+            </div>
+          </div>
+
+          <div class="card shadow-sm overview-card p-4">
+            <h6>Insights</h6>
+            <p class="card-legend">Auto-generated highlights</p>
+            <ul class="mt-2 mb-0">
+              <li>Auth related code detected in <em>scanner</em> module.</li>
+              <li>Session handling and user model present.</li>
+              <li>12 Python files — good candidate for modularization.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer border-top mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>Built with FastAPI, GitPython and AST Parsing</div>
+          <div class="text-muted small">© CodeAtlas</div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

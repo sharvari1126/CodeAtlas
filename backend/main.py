@@ -1,5 +1,8 @@
 from fastapi import FastAPI
-from backend.scanner.repo_scanner import (clone_repository, scan_repository )
+from backend.scanner.repo_scanner import (
+    clone_repository,
+    analyze_repository
+)
 
 app = FastAPI()
 
@@ -20,8 +23,8 @@ def clone_repo(repo_url: str):
 @app.post("/analyze")
 def analyze_repo(repo_url: str):
 
-    path = clone_repository(repo_url)
+    repo_path = clone_repository(repo_url)
 
-    results = scan_repository(path)
+    results = analyze_repository(repo_path)
 
     return results
