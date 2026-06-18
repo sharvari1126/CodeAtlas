@@ -35,3 +35,13 @@ Repository Intelligence Copilot
 - Call graph generation
 - Dependency analysis
 - AI-powered repository summaries
+
+## Installation
+
+git clone https://github.com/sharvarii1126/CodeAtlas.git
+
+cd CodeAtlas
+
+pip install -r requirements.txt
+
+uvicorn backend.main:app --reload
