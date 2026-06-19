@@ -4,6 +4,7 @@ from backend.scanner.repo_scanner import (
     analyze_repository
 )
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 app = FastAPI()
 app.add_middleware(
@@ -16,7 +17,7 @@ app.add_middleware(
 
 @app.get("/")
 def home():
-    return {"message": "Welcome to CodeAtlas"}
+    return FileResponse("frontend.html")
 
 @app.post("/clone")
 def clone_repo(repo_url: str):
