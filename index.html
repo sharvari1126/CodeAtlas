@@ -253,11 +253,11 @@ Analyze a repository to view structure...
             document.getElementById("repoUrl").value;
 
         const response = await fetch(
-            `http://127.0.0.1:8000/analyze?repo_url=${encodeURIComponent(repoUrl)}`,
-            {
-                method: "POST"
-            }
-        );
+    `/analyze?repo_url=${encodeURIComponent(repoUrl)}`,
+    {
+        method: "POST"
+    }
+);
 
         const data = await response.json();
 
