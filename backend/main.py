@@ -5,6 +5,10 @@ from backend.scanner.repo_scanner import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from pathlib import Path
+
+
+    
 
 app = FastAPI()
 app.add_middleware(
@@ -17,7 +21,9 @@ app.add_middleware(
 
 @app.get("/")
 def home():
-    return FileResponse("frontend.html")
+    return FileResponse(
+        Path(__file__).parent.parent / "index.html"
+    )
 
 @app.post("/clone")
 def clone_repo(repo_url: str):
